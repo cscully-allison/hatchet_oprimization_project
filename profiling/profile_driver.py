@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import hatchet as ht
-from hatchet.util.profiler import Profiler
+from profiler import Profiler
 import os
 import glob
 import json
