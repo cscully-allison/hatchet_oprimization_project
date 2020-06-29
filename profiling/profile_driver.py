@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import hatchet as ht
 from profiler import Profiler
@@ -19,10 +19,12 @@ if __name__ == "__main__":
         dirname = "../../hatchet/hatchet/tests/data/hpctoolkit-threads-osu-allgather"
         gf = ht.GraphFrame.from_hpctoolkit(dirname)
 
-    else:
-        dirname = "../../asde/hatchet-datasets/mpi-perf-comparison-datasets/"
+    elif configs['profile_type'] == "batch":
+        dirname = configs['profile_endpoint']
+        numtrials = configs['numtrials']
+
+
         visual_dict = {'profile':[],'runtime':[],'records':[]}
-        numtrials = 1
         vispath = "vis_data_{}_trials.json".format(numtrials)
         updateVis = True
 
@@ -58,6 +60,22 @@ if __name__ == "__main__":
         # get the last directory from dirname
         with open(vispath, 'w') as f:
             f.write(json.dumps(visual_dict))
+
+    elif configs['profile_type'] == "single":
+        filename = configs['profile_endpoint']
+        numtrials = configs['numtrials']
+
+        print("Profiling", filename)
+        for x in range(0, numtrials):
+            print(".", end='')
+            prf.start()
+            gf = ht.GraphFrame.from_hpctoolkit(filename)
+            prf.end()
+
+        prf.dumpAverageStats('cumulative', '{1}_records_{2}_trials_{0}_profile.txt'.format(configs['filename'], gf.dataframe.shape[0], numtrials), numtrials)
+        
+
+
 
     # print(gf.dataframe.shape)
     # print("\n")
