@@ -16,7 +16,7 @@ with open("app.yaml", "r") as f:
 
 if __name__ == "__main__":
     if configs['debug'] == True:
-        dirname = "../../hatchet/hatchet/tests/data/hpctoolkit-threads-osu-allgather"
+        dirname = "../../hatchet/hatchet/tests/data/hpctoolkit-cpi-database"
         gf = ht.GraphFrame.from_hpctoolkit(dirname)
 
     elif configs['profile_type'] == "batch":
@@ -51,7 +51,7 @@ if __name__ == "__main__":
             # prf = Profiler()
             # prf.dumpSortedStats('cumulative', 'cprofile_2.txt')
             print('\n')
-            prf.dumpAverageStats('cumulative', '{1}_records_{2}_trials_{0}_profile.txt'.format(filename, gf.dataframe.shape[0], numtrials), numtrials)
+            prf.dumpAverageStats('cumulative', '{1}_records_{2}_trials_{0}_{3}_profile.txt'.format(filename, gf.dataframe.shape[0], numtrials, "postopti"), numtrials)
             visual_dict['profile'].append(filename)
             visual_dict['runtime'].append(prf.getAverageRuntime(numtrials))
             visual_dict['records'].append(gf.dataframe.shape[0])
@@ -73,7 +73,7 @@ if __name__ == "__main__":
             prf.end()
 
         prf.dumpAverageStats('cumulative', '{1}_records_{2}_trials_{0}_profile.txt'.format(configs['filename'], gf.dataframe.shape[0], numtrials), numtrials)
-        
+
 
 
 

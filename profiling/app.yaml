@@ -4,8 +4,8 @@ descripton : "This is configuration file for the hatchet profilier."
 
 #Configurations for the profilier driver
 run_metadata: "Modified to make run faster with cython."
-debug: false
+debug: true
 profile_type: "batch"
 profile_endpoint: "../../asde/hatchet-datasets/mpi-perf-comparison-datasets/"
-numtrials: 20
-profiler: "hatchet.util.profiler"
+numtrials: 10
+profiler: "profiler"

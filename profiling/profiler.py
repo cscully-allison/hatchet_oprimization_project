@@ -63,6 +63,8 @@ class Profiler:
             sts.sort_stats(sortby)
             sts.print_stats()
 
+    # collect data like max/min/median for output
+
 
 # TODO: function for calling profile n times with a particular endpoint
 # TODO: output data for later visualization
