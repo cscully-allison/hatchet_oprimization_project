@@ -3,9 +3,16 @@ name: app.yaml
 descripton : "This is configuration file for the hatchet profilier."
 
 #Configurations for the profilier driver
-run_metadata: "Modified to make run faster with cython."
+run_metadata:
+  description: "Modified hpc_toolkit_reader to make run faster with cython and code re-arrangement."
 debug: true
 profile_type: "batch"
 profile_endpoint: "../../asde/hatchet-datasets/mpi-perf-comparison-datasets/"
+filename: "hpctoolkit-database-amg2013-mvapich2-64-0"
 numtrials: 10
 profiler: "profiler"
+run_output_postfix: "test_pxmport_cython_comp_dirs"
+
+# vis configurations
+vis:
+  updateVis: True
