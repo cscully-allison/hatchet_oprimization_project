@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
+from __future__ import print_function
 import hatchet as ht
 from profiler import Profiler
 import os
@@ -31,18 +32,18 @@ if __name__ == "__main__":
     elif configs['profile_type'] == "batch":
 
         # create a directory for this run and dump metadata in there
-        profile_runs_dir = "{}_profile_runs".format(datetime.now().strftime("%m-%d-%Y-%H%M"))
+        profile_runs_dir = "{}_profile_runs/".format(datetime.now().strftime("%m-%d-%Y-%H%M"))
         if not os.path.exists(profile_runs_dir):
             os.mkdir(profile_runs_dir)
-            with open(profile_runs_dir+"/metadata.txt", "w") as f:
+            with open(profile_runs_dir+"metadata.txt", "w") as f:
                 f.write("Description: {}\n".format(configs['run_metadata']['description']))
                 uname = platform.uname()
-                f.write(f"System: {uname.system}\n")
-                f.write(f"Node Name: {uname.node}\n")
-                f.write(f"Release: {uname.release}\n")
-                f.write(f"Version: {uname.version}\n")
-                f.write(f"Machine: {uname.machine}\n")
-                f.write(f"Processor: {uname.processor}\n")
+                f.write("System: {}\n".format(uname.system))
+                f.write("Node Name: {}\n".format(uname.node))
+                f.write("Release: {}\n".format(uname.release))
+                f.write("Version: {}\n".format(uname.version))
+                f.write("Machine: {}\n".format(uname.machine))
+                f.write("Processor: {}\n".format(uname.processor))
 
         dirname = configs['profile_endpoint']
         numtrials = configs['numtrials']
