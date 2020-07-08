@@ -49,13 +49,13 @@ if __name__ == "__main__":
         numtrials = configs['numtrials']
 
 
-        visual_dict = {'profile':[],'runtime':[],'records':[]}
+        visual_dict = {'profile':[], 'runtime':[], 'records':[], 'nodes':[], 'ranks':[], 'threads': []}
         updateVis = configs['vis']['updateVis']
 
         if updateVis is True:
             vispath = "vis_data_{}_trials_{}.json".format(numtrials, configs['run_output_postfix'])
         else:
-            vispath = "temp_vis_store.json"
+            vispath = profile_runs_dir+"temp_vis_store.json"
 
         if os.path.exists(vispath):
             print("Reading old timing code.")
@@ -75,6 +75,16 @@ if __name__ == "__main__":
             visual_dict['profile'].append(filename)
             visual_dict['runtime'].append(prf.getAverageRuntime(numtrials))
             visual_dict['records'].append(gf.dataframe.shape[0])
+
+            threads = gf.dataframe.groupby(['thread']).sum()
+            visual_dict['threads'].append(threads.shape[0])
+
+            ranks = gf.dataframe.groupby(['rank']).sum()
+            visual_dict['ranks'].append(ranks.shape[0])
+
+            nodes = gf.dataframe.groupby(['node']).sum()
+            visual_dict['nodes'].append(nodes.shape[0])
+
             prf.reset()
 
         # get the last directory from dirname
