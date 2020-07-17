@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH -N 16
+#SBATCH -N 4
 #SBATCH -t 01:00:00
-#SBATCH -p pbatch
+#SBATCH -p pdebug
 #SBATCH --output=job%J.out
 #SBATCH --error=job%J.err
 #SBATCH --mail-type=ALL
@@ -69,7 +69,7 @@ NAME=$(echo $APP | rev | cut -d "/" -f 1 | rev)
 export OMP_NUM_THREADS=1
 export HPCRUN_IGNORE_THREAD=1
 
-srun -n 256 hpcrun ${APP} --procs 4,8,8
+srun -n 64 hpcrun ${APP} --procs 4,4,4
 
 hpcstruct $APP
 

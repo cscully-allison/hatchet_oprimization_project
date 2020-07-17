@@ -7,15 +7,23 @@ import io
 class Profiler:
     def __init__(self, prf=cProfile.Profile()):
         self.prf = prf
+        self.running_total = 0
 
     def start(self):
         self.prf.enable()
 
     def end(self):
         self.prf.disable()
+        return self.getLastRuntime()
 
     def reset(self):
         self.prf = cProfile.Profile()
+        self.running_total = 0
+
+    def getLastRuntime(self):
+        last = pstats.Stats(self.prf).__dict__["total_tt"] - self.running_total
+        self.running_total += last
+        return last
 
     def getRuntime(self):
         return pstats.Stats(self.prf).__dict__["total_tt"]
